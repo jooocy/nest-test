@@ -6,7 +6,14 @@ import { MailService } from './mail.service';
 @Module({
   imports: [
     MailerModule.forRoot({
-      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      transport: {
+        host: 'smtp.gmail.com',
+        port: parseInt(process.env.MAIL_PORT),
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS,
+        },
+      },
       defaults: {
         from: '"nest-modules" <modules@nestjs.com>',
       },
