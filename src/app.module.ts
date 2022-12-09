@@ -6,6 +6,7 @@ import { MailModule } from './mail/mailer.module';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BatchModule } from './batch/batch.module';
+import { TddModule } from './tdd/tdd.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { BatchModule } from './batch/batch.module';
       isGlobal: true,
     }),
     BatchModule,
+    TddModule,
   ],
   controllers: [AppController],
   providers: [AppService, MailService],
