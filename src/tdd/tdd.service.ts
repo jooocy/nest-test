@@ -1,19 +1,28 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateTddDto } from './dto/create-tdd.dto';
 import { UpdateTddDto } from './dto/update-tdd.dto';
+import { Tdd } from './entities/tdd.entity';
 
 @Injectable()
 export class TddService {
+  constructor(
+    @InjectRepository(Tdd)
+    private tddRepository: Repository<Tdd>,
+  ) {}
   create(createTddDto: CreateTddDto) {
-    return 'This action adds a new tdd';
+    const newTdd = this.tddRepository.create(createTddDto);
+    return this.tddRepository.save(newTdd);
   }
 
   findAll() {
-    return `This action returns all tdd`;
+    return this.tddRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} tdd`;
+    const tdd = this.tddRepository.findOneByOrFail({ id });
+    return tdd;
   }
 
   update(id: number, updateTddDto: UpdateTddDto) {
